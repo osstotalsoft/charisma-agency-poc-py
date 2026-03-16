@@ -1,0 +1,8 @@
+Hello World!
+This is a sample text file for testing filesystem operations.
+You can ask the agent to read, edit, or search this file.
+
+Line 5: Some numbers 12345
+Line 6: A pattern to grep for — TODO: fix this
+Line 7: Another line with keywords like ERROR and WARNING
+Line 8: The quick brown fox jumps over the lazy dog

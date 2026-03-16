@@ -1,0 +1,13 @@
+{
+  "python_version": "3.11",
+  "dependencies": ["."],
+  "graphs": {
+    "agent001": "src.agent001.agent:agent",
+    "agent002": "src.agent002.agent:agent",
+    "agent003": "src.agent003.agent:agent",
+    "agent004": "src.agent004.agent:agent",
+    "agent005": "src.agent005.agent:agent",
+    "agent007": "src.agent007.agent:agent"
+  },
+  "env": ".env.local"
+}
