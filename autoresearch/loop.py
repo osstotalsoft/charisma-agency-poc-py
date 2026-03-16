@@ -103,7 +103,7 @@ def run_eval() -> dict:
         [sys.executable, "-m", "autoresearch.eval"],
         capture_output=True,
         text=True,
-        timeout=300,
+        timeout=1800,
         cwd=os.path.dirname(os.path.dirname(__file__)),
     )
     if result.returncode != 0:
