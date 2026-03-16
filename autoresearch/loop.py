@@ -86,15 +86,15 @@ def validate_syntax(code: str) -> bool:
     """Check if code has valid Python syntax."""
     with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
         f.write(code)
-        f.flush()
-        try:
-            py_compile.compile(f.name, doraise=True)
-            return True
-        except py_compile.PyCompileError as e:
-            print(f"  SYNTAX ERROR: {e}", file=sys.stderr)
-            return False
-        finally:
-            os.unlink(f.name)
+        tmp_path = f.name
+    try:
+        py_compile.compile(tmp_path, doraise=True)
+        return True
+    except py_compile.PyCompileError as e:
+        print(f"  SYNTAX ERROR: {e}", file=sys.stderr)
+        return False
+    finally:
+        os.unlink(tmp_path)
 
 
 def run_eval() -> dict:
