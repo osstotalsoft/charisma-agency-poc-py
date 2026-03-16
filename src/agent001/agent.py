@@ -20,6 +20,12 @@ def add(a: float, b: float) -> float:
 
 
 @tool
+def subtract(a: float, b: float) -> float:
+    """Subtract b from a."""
+    return a - b
+
+
+@tool
 def multiply(a: float, b: float) -> float:
     """Multiply two numbers."""
     return a * b
@@ -27,14 +33,33 @@ def multiply(a: float, b: float) -> float:
 
 @tool
 def divide(a: float, b: float) -> float:
-    """Divide two numbers."""
+    """Divide a by b."""
+    if b == 0:
+        raise ZeroDivisionError("division by zero")
     return a / b
+
+
+@tool
+def power(a: float, b: float) -> float:
+    """Compute a raised to the power b."""
+    return a**b
+
+
+@tool
+def modulo(a: float, b: float) -> float:
+    """Compute a modulo b."""
+    if b == 0:
+        raise ZeroDivisionError("modulo by zero")
+    return a % b
 
 
 tools_by_name = {
     "add": add,
+    "subtract": subtract,
     "multiply": multiply,
     "divide": divide,
+    "power": power,
+    "modulo": modulo,
 }
 tools = list(tools_by_name.values())
 model_with_tools = model.bind_tools(tools)
@@ -45,12 +70,20 @@ class MessagesState(TypedDict):
     llm_calls: Annotated[int, operator.add]
 
 
+SYSTEM_PROMPT = (
+    "You are an arithmetic assistant. Solve the user's math problem exactly.\n"
+    "Rules:\n"
+    "- Use the provided tools for arithmetic operations (add, subtract, multiply, divide, power, modulo).\n"
+    "- Follow order of operations and show your work via tool calls when helpful.\n"
+    "- If the user asks for a final value, return ONLY the numeric answer (no units, no extra text).\n"
+    "- Handle edge cases: if division/modulo by zero would occur, respond with 'ERROR'."
+)
+
+
 def llm_call(state: MessagesState) -> dict:
     response = model_with_tools.invoke(
         [
-            SystemMessage(
-                content="You are a helpful assistant tasked with performing arithmetic on a set of inputs."
-            ),
+            SystemMessage(content=SYSTEM_PROMPT),
             *state["messages"],
         ]
     )
@@ -64,9 +97,34 @@ def tool_node(state: MessagesState) -> dict:
 
     results: list[ToolMessage] = []
     for tool_call in last_message.tool_calls or []:
-        t = tools_by_name[tool_call["name"]]
-        observation = t.invoke(tool_call)
-        results.append(observation)
+        name = tool_call.get("name")
+        t = tools_by_name.get(name)
+        if t is None:
+            results.append(
+                ToolMessage(
+                    content=f"ERROR: unknown tool '{name}'",
+                    tool_call_id=tool_call.get("id", ""),
+                )
+            )
+            continue
+        try:
+            observation = t.invoke(tool_call)
+        except ZeroDivisionError:
+            results.append(
+                ToolMessage(
+                    content="ERROR",
+                    tool_call_id=tool_call.get("id", ""),
+                )
+            )
+        except Exception as e:
+            results.append(
+                ToolMessage(
+                    content=f"ERROR: {type(e).__name__}",
+                    tool_call_id=tool_call.get("id", ""),
+                )
+            )
+        else:
+            results.append(observation)
 
     return {"messages": results}
 
