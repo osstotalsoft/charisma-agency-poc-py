@@ -56,7 +56,7 @@ def append_result(iteration: int, score: float, passed: int, total: int, action:
 def propose_improvement(client: OpenAI, current_code: str, history: str, program: str) -> str | None:
     """Ask the optimizer LLM to propose an improved agent.py."""
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         messages=[
             {"role": "system", "content": program},
             {

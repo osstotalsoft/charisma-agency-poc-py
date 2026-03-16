@@ -12,7 +12,7 @@ An AI agency built with LangChain and LangGraph that exposes specialized agents 
 2. Create a `.env.local` file with your OpenAI API key:
    ```env
    OPENAI_API_KEY=your-api-key
-   OPENAI_MODEL=gpt-4o-mini  # optional, defaults to gpt-4o-mini
+   OPENAI_MODEL=gpt-4o-mini  # optional, defaults to gpt-5.2
    ```
 
 ## Running
@@ -89,7 +89,7 @@ Requires `TAVILY_API_KEY` and the same MCP env vars as agent003.
 
 ## Autoresearch: Autonomous Agent Optimization
 
-An autonomous optimization loop inspired by [hwchase17/autoresearch-agents](https://github.com/hwchase17/autoresearch-agents). An LLM "optimizer" (GPT-4o) continuously improves `agent001` by proposing code changes, evaluating them against a test suite, and keeping only improvements.
+An autonomous optimization loop inspired by [hwchase17/autoresearch-agents](https://github.com/hwchase17/autoresearch-agents). An LLM "optimizer" (gpt-5.2) continuously improves `agent001` by proposing code changes, evaluating them against a test suite, and keeping only improvements.
 
 ### How it works
 
