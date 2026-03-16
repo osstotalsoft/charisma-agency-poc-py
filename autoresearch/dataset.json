@@ -1,0 +1,22 @@
+[
+  {"input": "What is 3 + 5?", "expected": 8.0},
+  {"input": "What is 10 - 3?", "expected": 7.0},
+  {"input": "What is 6 * 7?", "expected": 42.0},
+  {"input": "What is 100 / 4?", "expected": 25.0},
+  {"input": "What is 3 + 5 * 2?", "expected": 13.0},
+  {"input": "What is (10 + 5) * 3 / 5?", "expected": 9.0},
+  {"input": "What is 987654321 - 123456789?", "expected": 864197532.0},
+  {"input": "What is 8675309 - 5551212?", "expected": 3124097.0},
+  {"input": "What is 2 ** 17?", "expected": 131072.0},
+  {"input": "What is 7 to the power of 6?", "expected": 117649.0},
+  {"input": "What is 17 modulo 5?", "expected": 2.0},
+  {"input": "What is 123456789 * 987654321?", "expected": 121932631112635269.0},
+  {"input": "What is 50 - 23 + 11 * 3?", "expected": 60.0},
+  {"input": "What is (100 - 37) * (8 + 5)?", "expected": 819.0},
+  {"input": "If I have 15 apples and give away 7, then triple the rest, how many do I have?", "expected": 24.0},
+  {"input": "A rectangle has length 13 and width 7. What is its area minus its perimeter?", "expected": 51.0},
+  {"input": "What is 7 / 3?", "expected": 2.333333},
+  {"input": "What is 99999 * 99999?", "expected": 9999800001.0},
+  {"input": "What is 314159 + 271828 - 141421?", "expected": 444566.0},
+  {"input": "What is 0 + 0?", "expected": 0.0}
+]

@@ -86,3 +86,31 @@ Also supports persistent memory via `/MEMORY.md` and self-updating user preferen
 An enhanced agent that combines MCP tools with internet research capabilities. Built with the `deepagents` library, it integrates dynamically loaded MCP tools alongside Tavily-powered internet search.
 
 Requires `TAVILY_API_KEY` and the same MCP env vars as agent003.
+
+## Autoresearch: Autonomous Agent Optimization
+
+An autonomous optimization loop inspired by [hwchase17/autoresearch-agents](https://github.com/hwchase17/autoresearch-agents). An LLM "optimizer" (GPT-4o) continuously improves `agent001` by proposing code changes, evaluating them against a test suite, and keeping only improvements.
+
+### How it works
+
+1. The optimizer reads the current `src/agent001/agent.py` and past results
+2. It proposes a new version of the file (adding tools, improving prompts, etc.)
+3. The new code is syntax-checked, then evaluated against 20 arithmetic test cases
+4. If the score improves, the change is committed; otherwise it's reverted
+5. Repeats until the score reaches 1.0 or 20 iterations are exhausted
+
+### Run the evaluation only
+
+```bash
+uv run python -m autoresearch.eval
+```
+
+Outputs a JSON report with per-case scores and an aggregate score.
+
+### Run the optimization loop
+
+```bash
+uv run python -m autoresearch.loop
+```
+
+This will iteratively improve `agent001`, printing progress and keeping a log in `autoresearch/results.tsv`. Check `git log` to see committed improvements.
