@@ -35,8 +35,6 @@ You can interact with the agent using [Agent Chat UI](https://agentchat.vercel.a
 
 A simple agent that performs arithmetic operations using a custom StateGraph with an LLM call node and tool execution node that loops until no more tools are needed.
 
-Tools:
-
 - **add** — adds two numbers
 - **multiply** — multiplies two numbers
 - **divide** — divides two numbers
@@ -61,13 +59,13 @@ Requires `HOLIDAY_REQUEST_MCP_URL` and `EMPLOYEE_PROFILE_MCP_URL` env vars point
 
 ### agent004
 
-An expert research agent built with the `deepagents` library. Conducts thorough research and writes polished reports using an internet search tool powered by Tavily.
+An expert research agent built with `create_deep_agent()` from the `deepagents` library. Conducts thorough research and writes polished reports using an internet search tool powered by Tavily.
 
 Requires a `TAVILY_API_KEY` env var.
 
 ### agent005
 
-A File Management Assistant built with the `deepagents` library. Helps users explore, read, create, edit, and search files in a sandboxed workspace directory (`src/agent005/workspace/`).
+A File Management Assistant built with `create_deep_agent()` from the `deepagents` library. Helps users explore, read, create, edit, and search files in a sandboxed workspace directory (`src/agent005/workspace/`).
 
 Tools (provided by `LocalShellBackend`):
 
@@ -83,7 +81,7 @@ Also supports persistent memory via `/MEMORY.md` and self-updating user preferen
 
 ### agent007
 
-An enhanced agent that combines MCP tools with internet research capabilities. Built with the `deepagents` library, it integrates dynamically loaded MCP tools alongside Tavily-powered internet search.
+A Smart Holiday Bridge Planner built with `create_deep_agent()` from the `deepagents` library. Autonomously discovers Romanian public holidays, calculates optimal bridge days, and creates holiday requests via MCP.
 
 Requires `TAVILY_API_KEY` and the same MCP env vars as agent003.
 
